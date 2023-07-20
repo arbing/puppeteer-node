@@ -27,5 +27,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: arbing/puppeteer-docker:${GITHUB_REF_NAME}
+          tags: arbing/puppeteer-node:${GITHUB_REF_NAME}
           platforms: linux/amd64,linux/arm64
