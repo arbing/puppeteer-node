@@ -6,8 +6,8 @@ on:
 
 jobs:
   build:
+    if: startsWith(github.ref, 'refs/heads/')
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -22,10 +22,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
+      - name: Set vars
+        id: vars
+        run: echo ::set-output name=BRANCH::${GITHUB_REF#heads/*/}
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: arbing/puppeteer-node:${GITHUB_REF_NAME}
+          tags: arbing/puppeteer-node:${{ steps.vars.outputs.BRANCH }}
           platforms: linux/amd64,linux/arm64
