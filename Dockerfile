@@ -1,4 +1,4 @@
-FROM satantime/puppeteer-node:18-slim
+FROM satantime/puppeteer-node:16-slim
 
 RUN echo "Asia/Shanghai" > /etc/timezone
 
